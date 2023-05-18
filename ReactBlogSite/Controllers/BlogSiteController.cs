@@ -46,18 +46,25 @@ namespace ReactBlogSite.Controllers
 
         [HttpGet]
         [Route("getblogs")]
-        public List<Blog> GetBlogs()
+        public List<Blog> GetBlogs(int page)
         {
+            int amountPerPage = 3;
+            int skip = (page - 1) * amountPerPage;
+            //if (pageNumber == 0)
+            //{
+            //    skip = 0;
+            //}
             var repo = new Repository(_connectionString);
-            return repo.GetBlogs();
+            return repo.GetBlogs(skip, amountPerPage);
         }
+
 
         [HttpGet]
         [Route("getblog")]
         public Blog GetBlog(int id)
         {
             var repo = new Repository(_connectionString);
-            return repo.GetBlogs().FirstOrDefault(b=>b.Id==id);
+            return repo.GetAllBlogs().FirstOrDefault(b=>b.Id==id);
         }
 
         [HttpGet]

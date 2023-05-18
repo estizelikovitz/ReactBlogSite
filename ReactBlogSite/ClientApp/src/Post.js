@@ -4,9 +4,10 @@ import { useParams, useHistory } from 'react-router-dom';
 
 
 const Post = ({ blog }) => {
-    const { title, content, date, id } = blog;
-    //const { id } = useParams();
+    const { title, content, date, id, comments } = blog;
 
+    //const { id } = useParams();
+    
 
     const getText= () => {
         if (content.Length > 100) {
@@ -29,8 +30,11 @@ const Post = ({ blog }) => {
                         <h1>{title}</h1>
                         </Link>
                     </h2>
-                    {getText()};
-               
+                    {getText()}
+                    <br/>
+
+                    <small>{comments.length} comment(s)</small>
+                    <br/>
                     <Link to={`/viewblog/${id}`} className="btn btn-primary">Read More &rarr;</Link>
 
             </div>

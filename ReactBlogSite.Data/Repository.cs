@@ -15,7 +15,14 @@ namespace ReactBlogSite.Data
         {
             _connectionString = connectionString;
         }
-        public List<Blog> GetBlogs()
+        public List<Blog> GetBlogs(int skip, int amount)
+        {
+            using var context = new DataContext(_connectionString);
+            return context.Blogs.Include(b => b.Comments).OrderByDescending(b => b.Date).Skip(skip).Take(amount).ToList();
+
+        }
+
+        public List<Blog> GetAllBlogs()
         {
             using var context = new DataContext(_connectionString);
             return context.Blogs.Include(b => b.Comments).ToList();
